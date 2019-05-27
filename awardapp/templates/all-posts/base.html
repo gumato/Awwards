@@ -1,4 +1,4 @@
-<!-- {% load bootstrap3 %}
+{% load bootstrap4 %}
 {% load static%}
 <!DOCTYPE html>
 <html>
@@ -17,16 +17,16 @@
   {% endblock %}
 
 </head>
-<!-- <nav class="navbar navbar-inverse"> -->
-  <!-- <div class="container-fluid">
+<nav class="navbar navbar-inverse"> 
+  <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'awards' %}">Awwards</a>
+      <a class="navbar-brand" href="">Awwards</a>
     </div>
-
+ 
     <!-- Adding a search form  -->
-    <!-- <div class="col-sm-4 col-md-4 navbar-right">
+    <div class="col-sm-4 col-md-4 navbar-right">
 
-      <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+      <form class="navbar-form" role="search" action="">
 
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search" name="">
@@ -37,9 +37,9 @@
 
       </form>
     </div>
-    <!-- search form end -->
+     <!-- search form end -->
   </div>
-</nav> --> -->
+</nav> 
 <body>
     {% include "navbar.html" %}
 
@@ -50,4 +50,4 @@
      {% bootstrap_javascript %}
     {% endblock %}
 </body>
-</html> -->
+</html> 
