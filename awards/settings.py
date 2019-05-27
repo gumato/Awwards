@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'tinymce',
     'awardapp.apps.AwardappConfig',
     'bootstrap4',
     'django.contrib.admin',
