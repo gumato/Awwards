@@ -27,3 +27,7 @@ class Project(models.Model):
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
     pub_date = models.DateTimeField(auto_now_add=True)
+
+
+    def save_project(self):
+        self.save()
