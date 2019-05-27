@@ -3,7 +3,7 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from .models import Project,Profile
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm,ProjectForm
+from .forms import SignupForm,ProjectForm,UploadForm
 
 # Create your views here.
 def index(request):
@@ -32,14 +32,66 @@ def Signup(request):
 # def profile(request,profile_id):
 
 def search(request):
-    if 'search' in request.GET and request.GET['search']:
-        search_term = request.GET.get('search')
-        profiles = Profile.search_profile(search_term)
+    if 'project' in request.GET and request.GET['project']:
+        search_term = request.GET.get('project')
+        search_project = Project.search_by_name(search_term)
         message = f'{search_term}'
 
-        return render(request, 'search.html',{'message':message, 'profiles':profiles})
+        return render(request, 'search.html',{'message':message, 'projects':projects})
     else:
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
+def post_new(request):
+
+    if request.method == 'POST':
+        form = UploadForm(request.POST,request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form =UploadForm()
+
+    return render(request,'post_new.html',locals())
+
+@login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.editor = current_user
+            project.save()
+        return redirect('homePage')
+
+    else:
+        form = UploadForm()
+    return render(request, 'new_project.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def add_review(request,pk):
+   project = get_object_or_404(Project, pk=pk)
+   current_user = request.user
+   if request.method == 'POST':
+       form = ReviewForm(request.POST)
+       if form.is_valid():
+           design = form.cleaned_data['design']
+           usability = form.cleaned_data['usability']
+           content = form.cleaned_data['content']
+           review = form.save(commit=False)
+           review.project = project
+           review.design = design
+           review.usability = usability
+           review.content = content
+           review.save()
+           return redirect('homePage')
+   else:
+       form = ReviewForm()
+       return render(request,'review.html',{"user":current_user,"form":form})    
+
+
+
+
  
 

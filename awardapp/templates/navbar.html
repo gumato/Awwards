@@ -4,40 +4,14 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="col-sm-6 col-md-6">
-      {% if user.is_authenticated %}
-      <ul>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                    <span class="caret"></span>
-                </a>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <a href="{%url ''%}">Home</a>
-            </li>
-            <li>
-              <a href="/accounts/password/change">Change Password</a>
-            </li>
-            <li>
-              <a href="/logout">Logout</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      {% else %}
-      <li>
-        <a class='btn btn-default' href="/accounts/login">Login</a>
-      </li>
-
-      {% endif %}
-    </div>
+</button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
+        <a class="dropdown-item" href="/accounts/login/">Log in</a>
+        <a class="dropdown-item" href="/accounts/register/">signup</a>
       <li class="nav-item active">
         <a class="nav-link" href="#">
-            <i class="fab fa-facebook-square"></i>
+          <i class="fab fa-facebook-square"></i>
           <i class="fab fa-facebook-f"></i> Facebook
           <span class="sr-only">(current)</span>
         </a>
@@ -51,8 +25,8 @@
           aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i> Profile </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item" href="#">My account</a>
-          <a class="dropdown-item" href="#">Log out</a>
+          <a class="dropdown-item" href="/accounts/login/">Log in</a>
+          <a class="dropdown-item" href="/accounts/register/">signup</a>
         </div>
       </li>
     </ul>
