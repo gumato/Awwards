@@ -28,8 +28,6 @@ def Signup(request):
     return render(request, 'registration/signup.html', {'Form':form})    
 
 
-# @login_required(login_url='/accounts/login/')
-# def profile(request,profile_id):
 
 def search(request):
     if 'project' in request.GET and request.GET['project']:
