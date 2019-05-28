@@ -5,11 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns=[
     url('^$',views.index,name = 'index'),
-    url(r'^search/', views.search_results, name='search_results'),
-    url(r'signup/', views.signup, name="signup"),
+    url(r'^search/', views.search, name='search_project'),
+    url(r'signup/', views.Signup, name="signup"),
     url(r'^new/project$', views.new_project, name='new-project'),
     url(r'^review/(?P<pk>\d+)',views.add_review,name='review'),
-    url(r'^all/(?P<pk>\d+)', views.all, name='all'),
 
 ]
 if settings.DEBUG:

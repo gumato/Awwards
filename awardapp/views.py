@@ -11,7 +11,7 @@ def index(request):
     projects = Project.objects.all()
     profiles = Profile.objects.all()
     # rates = Rate.objects.all()
-    return render(request,'all-posts/index.html',{"date": date,})
+    return render(request,'index.html',{"date": date,})
 
 def Signup(request):
     if request.method == 'POST':
@@ -37,7 +37,7 @@ def search(request):
         search_project = Project.search_by_name(search_term)
         message = f'{search_term}'
 
-        return render(request, 'search.html',{'message':message, 'projects':projects})
+        return render(request, 'search.html',{'message':message, 'projects':search_project})
     else:
         message = 'Enter term to search'
         return render(request, 'search.html', {'message':message})
