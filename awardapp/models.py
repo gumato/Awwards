@@ -26,11 +26,8 @@ class Profile(models.Model):
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()    
-
-
-
-
+        instance.profile.save() 
+        
 class Project(models.Model):
     title = models.CharField(max_length =60)
     image = models.ImageField(upload_to='images/')

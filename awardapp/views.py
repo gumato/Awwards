@@ -4,6 +4,7 @@ import datetime as dt
 from .models import Project,Profile
 from django.contrib.auth.decorators import login_required
 from .forms import SignupForm,ProjectForm,UploadForm
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
