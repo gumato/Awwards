@@ -9,7 +9,8 @@ urlpatterns=[
     url(r'signup/', views.Signup, name="signup"),
     url(r'^new/project$', views.new_project, name='new-project'),
     url(r'^review/(?P<pk>\d+)',views.add_review,name='review'),
-    # url(r'^ajax/project/$',views.project,name='project'),
+    url(r'^ajax/project/$',views.ProjectList.as_view()),
+    url(r'^api/profile/$', views.ProfileList.as_view()),
 
 ]
 if settings.DEBUG:

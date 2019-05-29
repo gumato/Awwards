@@ -3,8 +3,14 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from .models import Project,Profile
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm,ProjectForm,UploadForm
+from .forms import SignupForm,ProfileForm,UploadForm
 from django.http import JsonResponse
+from django.contrib.auth.forms import UserCreationForm
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import *
+from .serializer import ProfileSerializer,ProjectSerializer
+
 
 # Create your views here.
 def index(request):
@@ -26,7 +32,14 @@ def Signup(request):
            
     else:
         form = SignupForm()
-    return render(request, 'registration/signup.html', {'Form':form})    
+    return render(request, 'registration/signup.html', {'Form':form})
+@login_required
+def profile_path(request,id_user):
+    user=User.objects.get(id=id_user)
+    images = Project.objects.all()
+    my_profile = Profile.objects.filter(user_id=request.user)[0:1]
+
+    return render(request,'profile.html',{'profile':my_profile})    
 
 
 
@@ -68,6 +81,21 @@ def new_project(request):
         form = UploadForm()
     return render(request, 'new_project.html', {"form": form})
 
+def editprofile(request):
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST,request.FILES)
+    
+        if form.is_valid():
+            profile=form.save(commit=False)
+            profile.user_id=request.user
+            profile.save()
+            return redirect('profile',request.user.id)
+    else:
+        form =ProfileForm()
+        
+    return render(request,'editprofile.html',locals())    
+
 @login_required(login_url='/accounts/login/')
 def add_review(request,pk):
    project = get_object_or_404(Project, pk=pk)
@@ -87,7 +115,20 @@ def add_review(request,pk):
            return redirect('homePage')
    else:
        form = ReviewForm()
-       return render(request,'review.html',{"user":current_user,"form":form})    
+       return render(request,'review.html',{"user":current_user,"form":form})
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_merch = Profile.objects.all()
+        serializers = MerchSerializer(all_merch, many=True)
+        return Response(serializers.data)
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_merch = Project.objects.all()
+        serializers = MerchSerializer(all_merch, many=True)
+        return Response(serializers.data)       
+
 
 
 
