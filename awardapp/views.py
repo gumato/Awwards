@@ -18,7 +18,7 @@ def index(request):
     projects = Project.objects.all()
     profiles = Profile.objects.all()
     # rates = Rate.objects.all()
-    return render(request,'index.html',{"date": date,})
+    return render(request,'index.html',{"date": date,"projects":projects})
 
 def Signup(request):
     if request.method == 'POST':
@@ -40,8 +40,6 @@ def profile_path(request,id_user):
     my_profile = Profile.objects.filter(user_id=request.user)[0:1]
 
     return render(request,'profile.html',{'profile':my_profile})    
-
-
 
 def search(request):
     if 'project' in request.GET and request.GET['project']:
@@ -75,11 +73,22 @@ def new_project(request):
             project = form.save(commit=False)
             project.editor = current_user
             project.save()
-        return redirect('homePage')
+        return redirect('index')
 
     else:
         form = UploadForm()
     return render(request, 'new_project.html', {"form": form})
+
+
+
+def single_post(request,project_id):
+   
+    projects = Project.objects.get(id=project_id)
+    print(projects.image.url)
+ 
+
+    return render(request,'single_project.html',{"projects":projects})
+
 
 def editprofile(request):
 

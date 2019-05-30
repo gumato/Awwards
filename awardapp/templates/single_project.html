@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 main-page d-flex" style=" margin-top: 5px;">
+            <div class="card card-cascade wider flex-fill ">
+
+                
+                <div class="view view-cascade overlay">
+                <img class="card-img-top"
+                            src="{{projects.image.url}}" alt="{{projects.title}}"> 
+                </div>
+                
+                
+                <div class="card-body">
+
+                    
+            
+                    <p class="card-text">{{new.description}}</p>
+                    <p><a href="{{projects.link}}" target="_blank">View Site</a></p>                    
+                 
+
+                </div>
+            </div>
+        </div>
+  
+
+{% endblock %}

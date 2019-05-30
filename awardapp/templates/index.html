@@ -1,24 +1,70 @@
-{%extends 'base.html'%} 
+{% extends 'base.html' %}
 {% block content %}
-<div class="container-top">
-    <br>
+{{ block.super}}
+{% load bootstrap4 %}
+<div class="container">
     <div class="row">
-        <div class=col-md-4>
-        <img style=height:300px;width:200px; src="https://images.unsplash.com/photo-1558874141-516cb0e13f7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
-    </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class=col-md-4>
-        <img style=height:300px;width:200px; src="https://images.unsplash.com/photo-1531986109286-faef9421cd73?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60" alt="">    
+           
+        {% for project in projects %}
 
+        <div class="col-md-4 main-page d-flex" style=" margin-top: 5px;">
+            <div class="card card-cascade wider flex-fill ">
+
+                
+                <div class="view view-cascade overlay">
+                <img class="card-img-top"
+                            src="{{project.image.url}}" alt="{{project.title}}">
+                </div>
+                
+                
+                <div class="card-body">
+
+                    
+                    <h4 class="card-title">{{new.name}}</h4>
+            
+                    <p class="card-text">{{project.description}}</p>
+                    <p><a href="{{project.link}}">View Site</a></p>                    
+                    <p><a href="{% url 'single' project.pk %}">See project</a></a></p>
+
+                </div>
+            </div>
         </div>
 
-    </div>
-
+        {% empty %}
+        <div class="row">
+            <!-- <h1 class="text-center"> No Images Yet</h1> -->
+        </div>
+        {% endfor %}
+        <div class="review-section">
+            {% for review in reviews %}
+            {% if project.id == review.project.id %}
+ 
+            <p><strong>{{review.juror}}</strong> {{review.comment}} [usability: {{review.usability}}, content: {{review.content}} , design: {{review.design}}]</p>
+            <p>{{ project.average_score | floatformat }}</p>
+            {% endif %}
+ 
+            {%endfor%}
+ 
+ 
+            {{form.media}}
+            <hr>
+            <form action="" method="post" enctype="multipart/form-data" id="sema">
+              {%csrf_token%}
+              <table>
+                {{ form.as_table }}
+              </table>
+            
+ 
+ 
+            </form>
+            
+ 
+          </div>
  
 
-</div>
 
+    </div>
+</div>
+</div>
 
 {% endblock %}

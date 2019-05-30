@@ -1,35 +1,55 @@
 <!--Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color:coral;">
-  <a class="navbar-brand" href="#">Awwards</a>
+  <a class="navbar-brand" href="#">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
 </button>
+
+
+<div class="nav-search">
+    <form action="{% url 'search_project' %}">
+      <input type="text" name="project" placeholder="Search by name">
+    </form>
+  </div>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
         <a class="dropdown-item" href="/accounts/login/">Log in</a>
         <a class="dropdown-item" href="/accounts/register/">signup</a>
+       
+        <a href="{% url 'new-project' %}"><button class="btn btn-success"> Submit Your Site </button></a>
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+
+        <!-- <a class="nav-link" href="#">
           <i class="fab fa-facebook-square"></i>
           <i class="fab fa-facebook-f"></i> Facebook
           <span class="sr-only">(current)</span>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fab fa-instagram"></i> Instagram</a>
-      </li>
+      </li> -->
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#"> -->
+          <!-- <i class="fab fa-instagram"></i> Instagram</a>
+      </li> -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i> Profile </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <!-- <a class="dropdown-item" href="/accounts/login/">Log in</a>
-          <a class="dropdown-item" href="/accounts/register/">signup</a> -->
+          <a class="dropdown-item" href="profile/{{user.id}}">Edit Profile</a>
+          <a class="dropdown-item" href="{% url 'new-project' %}">Post Site</a>
         </div>
+        <!-- <div class="nav-search">
+          <form action="{% url 'search_project' %}">
+            <input type="text" name="project" placeholder="Search by name">
+          </form> -->
+        </div>
+        
       </li>
     </ul>
   </div>
 </nav>
+
+
+
 <!--/.Navbar -->
